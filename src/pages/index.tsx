@@ -1,8 +1,8 @@
 import styles from "./home.module.scss";
-import Header from "@/components/Desktop/Header";
+import { Dock, Header } from "@/components/Desktop";
 import { useRecoilState } from "recoil";
 import { bgImgAtom } from "@/store";
-import { useEffect, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import { DockItemType } from "@/interfaces/dock";
 import { itemList } from "@/constants/dock";
 
@@ -84,13 +84,13 @@ export default function Home() {
               </Modals.BaseModal>
             ),
         ),
-      )}
+      )} */}
 
       <Dock
         itemList={items}
         onOpenModal={handleOpenModal}
         onUpperModal={handleUpperModal}
-      /> */}
+      />
     </div>
   );
 }

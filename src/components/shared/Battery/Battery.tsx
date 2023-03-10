@@ -59,18 +59,25 @@ export default function Battery({
       {onPercent && (
         <div
           className={classNames("percentage", {
-            blackMode,
-            isMobile,
+            [styles.blackMode]: blackMode,
+            [styles.isMobile]: isMobile,
           })}
         >
           {batteryPercent.toFixed()}%
         </div>
       )}
 
-      <div className={classNames("batteryOuter", { blackMode, isMobile })}>
+      <div
+        className={classNames("batteryOuter", {
+          [styles.blackMode]: blackMode,
+          [styles.isMobile]: isMobile,
+        })}
+      >
         <div
           ref={batteryInnerRef}
-          className={classNames("batteryInner", { blackMode })}
+          className={classNames("batteryInner", {
+            [styles.blackMode]: blackMode,
+          })}
         />
       </div>
     </div>

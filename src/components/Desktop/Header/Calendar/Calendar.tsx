@@ -125,12 +125,12 @@ export default function Calendar() {
                   dateRow.map((date) => (
                     <span
                       className={classNames("dateItem", {
-                        uppedCursor: date > 0,
-                        today:
+                        [styles.uppedCursor]: date > 0,
+                        [styles.today]:
                           todate === date &&
                           toMonth === month &&
                           toYear === year,
-                        selected: selectedDate === date && date > 0,
+                        [styles.selected]: selectedDate === date && date > 0,
                       })}
                       onClick={() => handleClickDate(date)}
                     >

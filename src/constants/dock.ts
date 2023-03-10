@@ -1,19 +1,19 @@
-// import { Modals } from "@components/Desktop";
+import { Modals } from "@/components/Desktop";
 import { DockItemType } from "@/interfaces/dock";
 
-// const {
-//   Info,
-//   Award,
-//   Certificate,
-//   Skill,
-//   History,
-//   Project,
-//   Notion,
-//   Settings,
-//   DinoGame,
-// } = Modals;
+const {
+  Info,
+  // Award,
+  // Certificate,
+  // Skill,
+  // History,
+  // Project,
+  // Notion,
+  // Settings,
+  // DinoGame,
+} = Modals;
 
-const iconUrl = process.env.PUBLIC_URL + "/assets/images/icons";
+const iconUrl = "/assets/icons";
 
 export const itemIDs = {
   myInfo: "myInfo",
@@ -29,15 +29,15 @@ export const itemIDs = {
 };
 
 export const itemList: Array<DockItemType> = [
-  //   {
-  //     id: itemIDs.myInfo,
-  //     title: "내 정보",
-  //     isOpen: false,
-  //     icon: `${iconUrl}/myInfo.webp`,
-  //     component: Info,
-  //     zIndex: 0,
-  //     nowOpen: false,
-  //   },
+  {
+    id: itemIDs.myInfo,
+    title: "내 정보",
+    isOpen: false,
+    icon: `${iconUrl}/myInfo.webp`,
+    component: Info,
+    zIndex: 0,
+    nowOpen: false,
+  },
   //   {
   //     id: itemIDs.notion,
   //     title: "notion",
