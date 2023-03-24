@@ -1,0 +1,46 @@
+.header {
+  padding: 10px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.itemsWrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 0 10px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.itemImage {
+  border-radius: 6px;
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+
+  &.selected {
+    width: calc(100% - 8px);
+    height: calc(130px - 8px);
+    border: 4px solid var(--blue-10);
+  }
+}
+
+.itemTitle {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: normal;
+
+  &.selected {
+    font-weight: bold;
+  }
+}

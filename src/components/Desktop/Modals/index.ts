@@ -5,6 +5,7 @@ import Certificate from "./Certificate";
 import Skill from "./Skill";
 import History from "./History";
 import Project from "./Project";
+import Settings from "./Settings";
 
 export default {
   Award,
@@ -14,4 +15,5 @@ export default {
   Skill,
   History,
   Project,
+  Settings,
 };

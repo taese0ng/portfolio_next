@@ -9,7 +9,7 @@ const {
   History,
   Project,
   // Notion,
-  // Settings,
+  Settings,
   // DinoGame,
 } = Modals;
 
@@ -119,15 +119,15 @@ export const itemList: Array<DockItemType> = [
   //     isFull: true,
   //     nowOpen: false,
   //   },
-  //   {
-  //     id: itemIDs.settings,
-  //     title: "환경설정",
-  //     isOpen: false,
-  //     icon: `${iconUrl}/settings.webp`,
-  //     component: Settings,
-  //     zIndex: 0,
-  //     width: 700,
-  //     height: 400,
-  //     nowOpen: false,
-  //   },
+  {
+    id: itemIDs.settings,
+    title: "환경설정",
+    isOpen: false,
+    icon: `${iconUrl}/settings.webp`,
+    component: Settings,
+    zIndex: 0,
+    width: 700,
+    height: 400,
+    nowOpen: false,
+  },
 ];
