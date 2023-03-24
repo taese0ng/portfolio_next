@@ -1,5 +1,5 @@
 import styles from "./home.module.scss";
-import { Dock, Header } from "@/components/Desktop";
+import { Dock, Header, Modals } from "@/components/Desktop";
 import { useRecoilState } from "recoil";
 import { bgImgAtom } from "@/store";
 import { Children, useEffect, useState } from "react";
@@ -71,7 +71,7 @@ export default function Home() {
         draggable={false}
       />
 
-      {/* {Children.toArray(
+      {Children.toArray(
         items.map(
           (item) =>
             item.isOpen && (
@@ -84,7 +84,7 @@ export default function Home() {
               </Modals.BaseModal>
             ),
         ),
-      )} */}
+      )}
 
       <Dock
         itemList={items}

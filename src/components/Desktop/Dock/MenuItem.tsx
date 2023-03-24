@@ -10,21 +10,22 @@ interface Props {
 }
 
 function MenuItem({ item, onOpenModal, onUpperModal }: Props) {
+  const { title, isOpen, icon } = item;
   const [isHover, setIsHover] = useState(false);
   const [isBounce, setIsBounce] = useState(false);
 
   const onClickMenu = (
     e: MouseEvent & { currentTarget: EventTarget & HTMLDivElement },
-    item: DockItemType,
+    dockItem: DockItemType,
   ) => {
     e.preventDefault();
-    if (!item.isOpen) {
+    if (!dockItem.isOpen) {
       setIsBounce(true);
-      //   setTimeout(() => setIsBounce(false), 700);
+      setTimeout(() => setIsBounce(false), 700);
 
-      onOpenModal(item.id);
+      onOpenModal(dockItem.id);
     } else {
-      onUpperModal(item.id);
+      onUpperModal(dockItem.id);
     }
   };
 
@@ -46,7 +47,7 @@ function MenuItem({ item, onOpenModal, onUpperModal }: Props) {
           [styles.menuItemTitleIsHover]: isHover,
         })}
       >
-        {item.title}
+        {title}
       </div>
 
       <div
@@ -55,10 +56,10 @@ function MenuItem({ item, onOpenModal, onUpperModal }: Props) {
         })}
         onClick={(e) => onClickMenu(e, item)}
       >
-        <img draggable={false} src={item.icon} alt={item.title} />
+        <img draggable={false} src={icon} alt={title} />
       </div>
 
-      {item.isOpen && <div className={styles.menuItemDot} />}
+      {isOpen && <div className={styles.menuItemDot} />}
     </div>
   );
 }

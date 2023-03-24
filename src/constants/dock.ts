@@ -3,7 +3,7 @@ import { DockItemType } from "@/interfaces/dock";
 
 const {
   Info,
-  // Award,
+  Award,
   // Certificate,
   // Skill,
   // History,
@@ -50,17 +50,17 @@ export const itemList: Array<DockItemType> = [
   //     nowOpen: false,
   //     resizeable: true,
   //   },
-  //   {
-  //     id: itemIDs.awards,
-  //     title: "수상경력",
-  //     isOpen: false,
-  //     icon: `${iconUrl}/award.webp`,
-  //     component: Award,
-  //     zIndex: 0,
-  //     width: 800,
-  //     height: 500,
-  //     nowOpen: false,
-  //   },
+  {
+    id: itemIDs.awards,
+    title: "수상경력",
+    isOpen: false,
+    icon: `${iconUrl}/award.webp`,
+    component: Award,
+    zIndex: 0,
+    width: 800,
+    height: 500,
+    nowOpen: false,
+  },
   //   {
   //     id: itemIDs.certificates,
   //     title: "자격증",

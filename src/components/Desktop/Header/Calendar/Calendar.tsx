@@ -124,7 +124,7 @@ export default function Calendar() {
                 {Children.toArray(
                   dateRow.map((date) => (
                     <span
-                      className={classNames("dateItem", {
+                      className={classNames(styles.dateItem, {
                         [styles.uppedCursor]: date > 0,
                         [styles.today]:
                           todate === date &&

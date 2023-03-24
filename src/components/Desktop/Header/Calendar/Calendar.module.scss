@@ -51,16 +51,16 @@
 .dateItem {
   @extend .item;
 
-  .uppedCursor {
+  &.uppedCursor {
     cursor: pointer;
   }
 
-  .today {
+  &.today {
     border-radius: 5px;
     box-shadow: 0 0 0 1.5px var(--blue-20);
   }
 
-  .selected {
+  &.selected {
     border-radius: 5px;
     box-shadow: 0 0 0 1.5px var(--white-70per);
   }
