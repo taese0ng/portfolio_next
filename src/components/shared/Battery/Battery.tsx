@@ -58,7 +58,7 @@ export default function Battery({
     <div className={styles.container}>
       {onPercent && (
         <div
-          className={classNames("percentage", {
+          className={classNames(styles.percentage, {
             [styles.blackMode]: blackMode,
             [styles.isMobile]: isMobile,
           })}
@@ -68,14 +68,14 @@ export default function Battery({
       )}
 
       <div
-        className={classNames("batteryOuter", {
+        className={classNames(styles.batteryOuter, {
           [styles.blackMode]: blackMode,
           [styles.isMobile]: isMobile,
         })}
       >
         <div
           ref={batteryInnerRef}
-          className={classNames("batteryInner", {
+          className={classNames(styles.batteryInner, {
             [styles.blackMode]: blackMode,
           })}
         />

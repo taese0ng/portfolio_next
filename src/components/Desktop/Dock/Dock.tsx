@@ -45,7 +45,7 @@ function Dock({ itemList, onOpenModal, onUpperModal }: Props) {
           </div>
 
           <div
-            className={classNames("bounce", styles.menuItemIcon)}
+            className={classNames(styles.bounce, styles.menuItemIcon)}
             onClick={handleClickSafari}
           >
             <img draggable={false} src={safariIcon} alt="safari" />
