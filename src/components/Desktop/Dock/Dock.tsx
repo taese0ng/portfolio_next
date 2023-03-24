@@ -5,6 +5,8 @@ import { DockItemType } from "@/interfaces/dock";
 import styles from "./Dock.module.scss";
 import MenuItem from "./MenuItem";
 import classNames from "classnames";
+import { motion, AnimatePresence } from "framer-motion";
+
 const safariIcon = "/assets/icons/safari.webp";
 
 interface Props {
@@ -36,13 +38,18 @@ function Dock({ itemList, onOpenModal, onUpperModal }: Props) {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div
-            className={classNames(styles.menuItemTitle, {
-              [styles.menuItemTitleIsHover]: safariIsHover,
-            })}
-          >
-            safari
-          </div>
+          <AnimatePresence>
+            {safariIsHover && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className={styles.menuItemTitle}
+              >
+                safari
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <div
             className={classNames(styles.bounce, styles.menuItemIcon)}

@@ -2,7 +2,8 @@ import { MouseEvent, useState } from "react";
 
 import { DockItemType } from "@/interfaces/dock";
 import styles from "./MenuItem.module.scss";
-import classNames from "classnames";
+import { motion, AnimatePresence } from "framer-motion";
+
 interface Props {
   item: DockItemType;
   onOpenModal: (id: string) => void;
@@ -21,7 +22,7 @@ function MenuItem({ item, onOpenModal, onUpperModal }: Props) {
     e.preventDefault();
     if (!dockItem.isOpen) {
       setIsBounce(true);
-      setTimeout(() => setIsBounce(false), 700);
+      setTimeout(() => setIsBounce(false), 300);
 
       onOpenModal(dockItem.id);
     } else {
@@ -37,30 +38,35 @@ function MenuItem({ item, onOpenModal, onUpperModal }: Props) {
     setIsHover(false);
   };
   return (
-    <div
+    <motion.div
+      initial={{ top: 0 }}
+      animate={{ top: isBounce ? -20 : 0 }}
+      transition={{ duration: 0.3, ease: "linear" }}
       className={styles.container}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      <AnimatePresence>
+        {isHover && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.menuItemTitle}
+          >
+            {title}
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div
-        className={classNames(styles.menuItemTitle, {
-          [styles.menuItemTitleIsHover]: isHover,
-        })}
-      >
-        {title}
-      </div>
-
-      <div
-        className={classNames(styles.menuItemIcon, {
-          [styles.menuItemIconIsBounce]: isBounce,
-        })}
+        className={styles.menuItemIcon}
         onClick={(e) => onClickMenu(e, item)}
       >
         <img draggable={false} src={icon} alt={title} />
       </div>
 
       {isOpen && <div className={styles.menuItemDot} />}
-    </div>
+    </motion.div>
   );
 }
 

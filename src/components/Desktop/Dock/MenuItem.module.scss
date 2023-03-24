@@ -6,7 +6,7 @@
 }
 
 .menuItemTitle {
-  display: none;
+  display: block;
   position: absolute;
   top: -40px;
   min-width: 60px;
@@ -29,10 +29,6 @@
     width: 0;
     z-index: 1;
   }
-}
-
-.menuItemTitleIsHover {
-  display: block;
 }
 
 .menuItemDot {
