@@ -4,6 +4,7 @@ import BaseModal from "./BaseModal";
 import Certificate from "./Certificate";
 import Skill from "./Skill";
 import History from "./History";
+import Project from "./Project";
 
 export default {
   Award,
@@ -12,4 +13,5 @@ export default {
   Certificate,
   Skill,
   History,
+  Project,
 };
