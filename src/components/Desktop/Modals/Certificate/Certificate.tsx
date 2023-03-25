@@ -1,6 +1,6 @@
 import { Children, useState } from "react";
 
-import { Popup } from "@/components/shared";
+import { Popup, ResponsiveImage } from "@/components/shared";
 import { certificateList } from "@/constants/certificates";
 
 import { Certificate as CertificateType } from "@/interfaces/certificates";
@@ -29,9 +29,8 @@ function Certificate() {
               className={styles.item}
               onClick={() => handleClickItem(certificate)}
             >
-              <img
+              <ResponsiveImage
                 className={styles.itemImg}
-                draggable={false}
                 src={certificate.src}
                 alt={certificate.title}
               />
@@ -46,8 +45,7 @@ function Certificate() {
       {isOpenPopup && selectedCertificate && (
         <Popup onClosePopup={handleClosePopup} hasCloseBtn>
           <div className={styles.imageWrapper}>
-            <img
-              draggable={false}
+            <ResponsiveImage
               src={selectedCertificate.src}
               alt={selectedCertificate.title}
             />

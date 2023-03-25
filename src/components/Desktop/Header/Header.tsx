@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { Battery } from "@/components/shared";
+import { Battery, ResponsiveImage } from "@/components/shared";
 import { itemIDs } from "@/constants/dock";
 import { DockItemType } from "@/interfaces/dock";
 
@@ -74,7 +74,7 @@ export default function Header({ itemList, onOpenModal, onUpperModal }: Props) {
             onFocus={handleFocusMenu}
             onBlur={handleBlurMenu}
           >
-            <img draggable={false} src={logoImg} alt="logo" />
+            <ResponsiveImage src={logoImg} alt="logo" />
           </div>
 
           {isFocusedPopup && (

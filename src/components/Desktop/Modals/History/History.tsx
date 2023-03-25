@@ -1,6 +1,6 @@
 import { Children, useEffect, useRef, useState } from "react";
 
-import { Card } from "@/components/shared";
+import { Card, ResponsiveImage } from "@/components/shared";
 import { historyList } from "@/constants/histories";
 
 import { History as HistoryType } from "@/interfaces/histories";
@@ -126,8 +126,12 @@ function History() {
                     <div>
                       <div className={styles.historyTitle}>{history.title}</div>
                       <div className={styles.historyDate}>
-                        <img draggable={false} src={clockIcon} alt="clock" />
-                        {getDate(history)}
+                        <ResponsiveImage
+                          className={styles.historyDateIcon}
+                          src={clockIcon}
+                          alt="clock"
+                        />
+                        <div>{getDate(history)}</div>
                       </div>
                       <div className={styles.historyContent}>
                         {history.content}

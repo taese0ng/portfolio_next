@@ -1,6 +1,6 @@
 import { Children, useEffect, useRef, useState } from "react";
 
-import { Card } from "@/components/shared";
+import { Card, ResponsiveImage } from "@/components/shared";
 import { projectList } from "@/constants/projects";
 import { Project as ProjectType } from "@/interfaces/projects";
 
@@ -119,9 +119,8 @@ function Project() {
             <li>
               <Card>
                 <div className={classNames(styles.cardWrapper, styles.isRow)}>
-                  <img
+                  <ResponsiveImage
                     className={styles.cardWrapperIcon}
-                    draggable={false}
                     src={selectedProject.icon}
                     alt="projectIcon"
                   />
@@ -134,8 +133,12 @@ function Project() {
                     </div>
 
                     <div className={styles.cardWrapperDate}>
-                      <img draggable={false} src={clockIcon} alt="clock" />
-                      {getDate(selectedProject)}
+                      <ResponsiveImage
+                        src={clockIcon}
+                        alt="clock"
+                        className={styles.cardWrapperDateIcon}
+                      />
+                      <div>{getDate(selectedProject)}</div>
                     </div>
                   </div>
 
@@ -147,11 +150,7 @@ function Project() {
                           handleClickUrl(selectedProject.githubUrl)
                         }
                       >
-                        <img
-                          draggable={false}
-                          src={githubIcon}
-                          alt="githubBtn"
-                        />
+                        <ResponsiveImage src={githubIcon} alt="githubBtn" />
                       </li>
                     )}
                     {selectedProject.url && (
@@ -222,7 +221,7 @@ function Project() {
                     {Children.toArray(
                       selectedProject.imgs.map((img) => (
                         <li>
-                          <img draggable={false} src={img} alt={img} />
+                          <ResponsiveImage src={img} alt={img} />
                         </li>
                       )),
                     )}

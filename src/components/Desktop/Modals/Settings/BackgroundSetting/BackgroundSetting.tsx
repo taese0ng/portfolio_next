@@ -6,6 +6,7 @@ import { bgImgAtom } from "@/store";
 import { useRecoilState } from "recoil";
 import styles from "./BackgroundSetting.module.scss";
 import classNames from "classnames";
+import { ResponsiveImage } from "@/components/shared";
 
 function BackgroundSetting() {
   const [bgImg, setBgImg] = useRecoilState(bgImgAtom);
@@ -26,11 +27,10 @@ function BackgroundSetting() {
           {Children.toArray(
             bgImgs.map((img) => (
               <li className={styles.item} onClick={() => handleSetImg(img)}>
-                <img
+                <ResponsiveImage
                   className={classNames(styles.itemImage, {
                     [styles.selected]: bgImg.title === img.title,
                   })}
-                  draggable={false}
                   src={img.src}
                   alt=""
                 />

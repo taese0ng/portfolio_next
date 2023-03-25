@@ -5,6 +5,7 @@ import { bgImgAtom } from "@/store";
 import { Children, useEffect, useState } from "react";
 import { DockItemType } from "@/interfaces/dock";
 import { itemList } from "@/constants/dock";
+import { ResponsiveImage } from "@/components/shared";
 
 const defaultBgUrl = "/assets/backgrounds";
 
@@ -66,12 +67,7 @@ export default function Home() {
         onOpenModal={handleOpenModal}
         onUpperModal={handleUpperModal}
       />
-      <img
-        className={styles.backgroundImg}
-        src={bgImg.src}
-        alt="background"
-        draggable={false}
-      />
+      <img className={styles.backgroundImg} src={bgImg.src} alt="background" />
 
       {Children.toArray(
         items.map(

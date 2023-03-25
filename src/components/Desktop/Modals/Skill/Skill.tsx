@@ -2,6 +2,7 @@ import { Children } from "react";
 
 import { skillList } from "@/constants/skills";
 import styles from "./Skill.module.scss";
+import { ResponsiveImage } from "@/components/shared";
 
 function Skill() {
   return (
@@ -10,9 +11,8 @@ function Skill() {
         {Children.toArray(
           skillList.map((skill) => (
             <li className={styles.item}>
-              <img
+              <ResponsiveImage
                 className={styles.itemImage}
-                draggable={false}
                 src={skill.src}
                 alt={skill.title}
               />

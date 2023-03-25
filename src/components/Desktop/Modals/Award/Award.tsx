@@ -1,6 +1,6 @@
 import { Children, useState } from "react";
 
-import { Popup } from "@/components/shared";
+import { Popup, ResponsiveImage } from "@/components/shared";
 import { awardList } from "@/constants/awards";
 import { Award as AwardType } from "@/interfaces/awards";
 import styles from "./Award.module.scss";
@@ -24,9 +24,8 @@ function Award() {
         {Children.toArray(
           awardList.map((award) => (
             <li className={styles.item} onClick={() => handleClickItem(award)}>
-              <img
+              <ResponsiveImage
                 className={styles.itemImg}
-                draggable={false}
                 src={award.src}
                 alt={award.title}
               />
@@ -41,8 +40,7 @@ function Award() {
       {isOpenPopup && selectedAward && (
         <Popup onClosePopup={handleClosePopup} hasCloseBtn>
           <div className={styles.imageWrapper}>
-            <img
-              draggable={false}
+            <ResponsiveImage
               src={selectedAward.src}
               alt={selectedAward.title}
             />

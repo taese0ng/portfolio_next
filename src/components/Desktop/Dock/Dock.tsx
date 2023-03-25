@@ -1,6 +1,7 @@
 import { Children, useState } from "react";
 
 import { DockItemType } from "@/interfaces/dock";
+import { ResponsiveImage } from "@/components/shared";
 
 import styles from "./Dock.module.scss";
 import MenuItem from "./MenuItem";
@@ -51,7 +52,7 @@ function Dock({ itemList, onOpenModal, onUpperModal }: Props) {
           </AnimatePresence>
 
           <div className={styles.menuItemIcon} onClick={handleClickSafari}>
-            <img draggable={false} src={safariIcon} alt="safari" />
+            <ResponsiveImage src={safariIcon} alt="safari" />
           </div>
         </div>
 

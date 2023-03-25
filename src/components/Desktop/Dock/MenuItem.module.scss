@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.wrapper {
+  @extend .container;
+}
+
 .menuItemTitle {
   display: block;
   position: absolute;

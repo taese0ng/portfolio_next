@@ -1,6 +1,7 @@
 import { MouseEvent, ReactNode, useEffect } from "react";
 
 import styles from "./Popup.module.scss";
+import { ResponsiveImage } from "@/components/shared";
 
 const closeIcon = "/assets/icons/closeIcon.webp";
 
@@ -44,7 +45,7 @@ function Popup({ onClosePopup, hasCloseBtn = false, children }: Props) {
       <div className={styles.wrapper} onClick={handleClickSlot}>
         {hasCloseBtn && (
           <div className={styles.closeButton} onClick={handleClosePopup}>
-            <img draggable={false} src={closeIcon} alt="closeButton" />
+            <ResponsiveImage src={closeIcon} alt="closeButton" />
           </div>
         )}
 

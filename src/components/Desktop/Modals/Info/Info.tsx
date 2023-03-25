@@ -3,6 +3,7 @@ import { Children } from "react";
 import { contents, profileImg } from "@/constants/info";
 import styles from "./Info.module.scss";
 import classNames from "classnames";
+import { ResponsiveImage } from "@/components/shared";
 
 function Info() {
   const handleClickContent = (link?: string) => {
@@ -12,7 +13,7 @@ function Info() {
   return (
     <div className={styles.container}>
       <div className={styles.profileImage}>
-        <img draggable={false} src={profileImg} alt="profileImg" />
+        <ResponsiveImage src={profileImg} alt="profileImg" />
       </div>
 
       <ul className={styles.profileContents}>
@@ -28,9 +29,8 @@ function Info() {
               })}
               onClick={() => handleClickContent(content?.link)}
             >
-              <img
+              <ResponsiveImage
                 className={styles.contentsIcon}
-                draggable={false}
                 src={content.icon}
                 alt={content.id}
               />
