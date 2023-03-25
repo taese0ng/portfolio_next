@@ -11,10 +11,6 @@ const clockIcon = "/assets/icons/clock.webp";
 const githubIcon = "/assets/icons/githubBtn.webp";
 
 function Project() {
-  const localStorageWidth = localStorage.getItem("project_sidebar_width");
-  const projectSideBarWidth = localStorageWidth
-    ? JSON.parse(localStorageWidth)
-    : 200;
   const containerRef = useRef<HTMLDivElement>(null);
   const cardListRef = useRef<HTMLUListElement>(null);
   const bodyWrapperRef = useRef<HTMLDivElement>(null);
@@ -22,7 +18,7 @@ function Project() {
   const [selectedProject, setSelectedProject] = useState<ProjectType>(
     projectList[0],
   );
-  const [sideBarWidth, setSideBarWidth] = useState(projectSideBarWidth);
+  const [sideBarWidth, setSideBarWidth] = useState(200);
 
   const handleMouseDown = () => {
     setIsClicked(true);
@@ -81,6 +77,15 @@ function Project() {
       window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isClicked]);
+
+  useEffect(() => {
+    const localStorageWidth = localStorage.getItem("project_sidebar_width");
+    const projectSideBarWidth = localStorageWidth
+      ? JSON.parse(localStorageWidth)
+      : 200;
+
+    setSideBarWidth(projectSideBarWidth);
+  }, []);
 
   return (
     <div className={styles.container} ref={containerRef}>

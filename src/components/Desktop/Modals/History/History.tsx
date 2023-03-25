@@ -19,14 +19,10 @@ const years = historyList
   .map((history) => history.from.getFullYear());
 
 function History() {
-  const localStorageWidth = localStorage.getItem("history_sidebar_width");
-  const historySideBartWidth = localStorageWidth
-    ? JSON.parse(localStorageWidth)
-    : 200;
   const containerRef = useRef<HTMLDivElement>(null);
   const bodyWrapperRef = useRef<HTMLDivElement>(null);
   const [isClicked, setIsClicked] = useState(false);
-  const [sideBarWidth, setSideBarWidth] = useState(historySideBartWidth);
+  const [sideBarWidth, setSideBarWidth] = useState(200);
   const [selectedHistory, setSelectedHistory] = useState<Array<HistoryType>>(
     [],
   );
@@ -85,6 +81,15 @@ function History() {
   useEffect(() => {
     getHistoryList();
   }, [selectedYear]);
+
+  useEffect(() => {
+    const localStorageWidth = localStorage.getItem("history_sidebar_width");
+    const historySideBartWidth = localStorageWidth
+      ? JSON.parse(localStorageWidth)
+      : 200;
+
+    setSideBarWidth(historySideBartWidth);
+  }, []);
 
   return (
     <div className={styles.container} ref={containerRef}>

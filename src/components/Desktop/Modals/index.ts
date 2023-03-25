@@ -1,19 +1,8 @@
-import Award from "./Award";
-import Info from "./Info";
-import BaseModal from "./BaseModal";
-import Certificate from "./Certificate";
-import Skill from "./Skill";
-import History from "./History";
-import Project from "./Project";
-import Settings from "./Settings";
-
-export default {
-  Award,
-  Info,
-  BaseModal,
-  Certificate,
-  Skill,
-  History,
-  Project,
-  Settings,
-};
+export { default as Award } from "./Award";
+export { default as Info } from "./Info";
+export { default as AnimatedBaseModal } from "./AnimatedBaseModal";
+export { default as Certificate } from "./Certificate";
+export { default as Skill } from "./Skill";
+export { default as History } from "./History";
+export { default as Project } from "./Project";
+export { default as Settings } from "./Settings";

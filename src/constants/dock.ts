@@ -1,17 +1,13 @@
-import { Modals } from "@/components/Desktop";
-import { DockItemType } from "@/interfaces/dock";
-
-const {
+import {
   Info,
   Award,
   Certificate,
   Skill,
   History,
   Project,
-  // Notion,
   Settings,
-  // DinoGame,
-} = Modals;
+} from "@/components/Desktop";
+import { DockItemType } from "@/interfaces/dock";
 
 const iconUrl = "/assets/icons";
 

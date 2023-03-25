@@ -4,7 +4,6 @@ import { DockItemType } from "@/interfaces/dock";
 
 import styles from "./Dock.module.scss";
 import MenuItem from "./MenuItem";
-import classNames from "classnames";
 import { motion, AnimatePresence } from "framer-motion";
 
 const safariIcon = "/assets/icons/safari.webp";
@@ -51,10 +50,7 @@ function Dock({ itemList, onOpenModal, onUpperModal }: Props) {
             )}
           </AnimatePresence>
 
-          <div
-            className={classNames(styles.bounce, styles.menuItemIcon)}
-            onClick={handleClickSafari}
-          >
+          <div className={styles.menuItemIcon} onClick={handleClickSafari}>
             <img draggable={false} src={safariIcon} alt="safari" />
           </div>
         </div>

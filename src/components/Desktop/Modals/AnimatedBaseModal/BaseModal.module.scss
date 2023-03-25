@@ -6,17 +6,11 @@
 
   border: 1px solid var(--gray-50);
 
-  visibility: hidden;
-
   &.isFull {
     width: 100%;
     height: calc(100% - 105px);
     left: 0px;
     top: 25px;
-  }
-
-  &.isVisible {
-    visibility: visible !important;
   }
 }
 

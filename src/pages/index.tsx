@@ -1,5 +1,5 @@
 import styles from "./home.module.scss";
-import { Dock, Header, Modals } from "@/components/Desktop";
+import { Dock, Header, AnimatedBaseModal } from "@/components/Desktop";
 import { useRecoilState } from "recoil";
 import { bgImgAtom } from "@/store";
 import { Children, useEffect, useState } from "react";
@@ -28,9 +28,11 @@ export default function Home() {
     const tempItems = items.map((item) => item);
     const index = tempItems.findIndex((item: DockItemType) => item.id === id);
 
-    tempItems[index].zIndex = 0;
-    tempItems[index].isOpen = false;
-    setItems(tempItems);
+    setTimeout(() => {
+      tempItems[index].zIndex = 0;
+      tempItems[index].isOpen = false;
+      setItems(tempItems);
+    }, 200);
   };
 
   const handleUpperModal = (id: string) => {
@@ -75,13 +77,13 @@ export default function Home() {
         items.map(
           (item) =>
             item.isOpen && (
-              <Modals.BaseModal
+              <AnimatedBaseModal
                 item={item}
                 onCloseModal={handleCloseModal}
                 onUpperModal={handleUpperModal}
               >
                 <item.component />
-              </Modals.BaseModal>
+              </AnimatedBaseModal>
             ),
         ),
       )}

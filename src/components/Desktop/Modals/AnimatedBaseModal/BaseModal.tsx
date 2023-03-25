@@ -25,7 +25,6 @@ function BaseModal({ item, onCloseModal, onUpperModal, children }: Props) {
     isAbsoluteHeader,
     title,
   } = item;
-  const [isVisible, setIsVisible] = useState(false);
   const [isResizeClicked, setIsResizeClicked] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [isIconHover, setIsIconHover] = useState(false);
@@ -233,13 +232,6 @@ function BaseModal({ item, onCloseModal, onUpperModal, children }: Props) {
       }
       containerRef.current.style.minWidth = `${containerMinWidth}px`;
       containerRef.current.style.minHeight = `${containerMinHeight}px`;
-
-      setTimeout(
-        () => {
-          setIsVisible(true);
-        },
-        nowOpen ? 0 : 900,
-      );
     }
   }, [containerRef]);
 
@@ -258,7 +250,6 @@ function BaseModal({ item, onCloseModal, onUpperModal, children }: Props) {
       ref={containerRef}
       onMouseDown={handleUppderModal}
       className={classNames(styles.container, {
-        [styles.isVisible]: isVisible,
         [styles.isFull]: isFull,
       })}
       style={{
