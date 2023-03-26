@@ -1,4 +1,4 @@
-import useGetWindow from "@/hooks/useGetWindow";
+import { useGetWindow } from "@/hooks";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect } from "react";
 
