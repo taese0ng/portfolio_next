@@ -74,7 +74,7 @@ export default function Header({ itemList, onOpenModal, onUpperModal }: Props) {
             onFocus={handleFocusMenu}
             onBlur={handleBlurMenu}
           >
-            <ResponsiveImage src={logoImg} alt="logo" />
+            <ResponsiveImage className={styles.logo} src={logoImg} alt="logo" />
           </div>
 
           {isFocusedPopup && (

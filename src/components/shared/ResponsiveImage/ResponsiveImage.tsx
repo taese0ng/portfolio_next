@@ -5,6 +5,8 @@ import classNames from "classnames";
 
 interface Props {
   src: string;
+  width: number | string;
+  height: number | string;
   onClick?: () => void;
   onLoadComplete?: (imageElement: HTMLImageElement) => void;
   onLoadError?: () => void;
@@ -19,12 +21,16 @@ function ResponsiveImage({
   src,
   alt = "",
   className,
+  width,
+  height,
   onClick,
   onLoadError,
   onLoadComplete,
   draggable = false,
 }: Props) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const isNormal = !isLoading && !isError;
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleClickImage = () => {
@@ -44,20 +50,30 @@ function ResponsiveImage({
   };
 
   return (
-    <Image
-      ref={imageRef}
-      className={classNames({ [styles.image]: isLoading }, className)}
-      src={src}
-      draggable={draggable}
-      onClick={handleClickImage}
-      onLoad={handleLoadImage}
-      onError={handleErrorImage}
-      alt={alt}
-      width={90}
-      height={90}
-      placeholder="blur"
-      blurDataURL={"placeholderImage"}
-    />
+    <div
+      className={classNames(styles.container, className)}
+      style={{ width: width, height: height }}
+    >
+      <Image
+        ref={imageRef}
+        className={styles.image}
+        style={{ width: "100%", height: "100%" }}
+        src={src}
+        draggable={draggable}
+        onClick={handleClickImage}
+        onLoad={handleLoadImage}
+        onError={handleErrorImage}
+        alt={alt}
+        width={90}
+        height={90}
+      />
+
+      {!isNormal && (
+        <div className={styles.placeholderImageWrapper}>
+          <img className={styles.placeholderImage} src={placeholderImage} />
+        </div>
+      )}
+    </div>
   );
 }
 
