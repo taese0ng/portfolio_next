@@ -47,6 +47,7 @@ function ResponsiveImage({
   const handleErrorImage = () => {
     onLoadError?.();
     setIsLoading(false);
+    setIsError(true);
   };
 
   return (
@@ -57,15 +58,16 @@ function ResponsiveImage({
       <Image
         ref={imageRef}
         className={styles.image}
-        style={{ width: "100%", height: "100%" }}
         src={src}
         draggable={draggable}
         onClick={handleClickImage}
         onLoad={handleLoadImage}
         onError={handleErrorImage}
+        sizes="100%, 100%"
         alt={alt}
-        width={100}
-        height={100}
+        fill
+        quality={100}
+        priority={true}
       />
 
       {!isNormal && (

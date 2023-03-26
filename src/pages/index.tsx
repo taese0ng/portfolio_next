@@ -7,7 +7,7 @@ import { DockItemType } from "@/interfaces/dock";
 import { itemList } from "@/constants/dock";
 import { ResponsiveImage } from "@/components/shared";
 
-const defaultBgUrl = "/assets/backgrounds";
+const defaultBackgroundImage = "/assets/backgrounds/background_monterey.webp";
 
 export default function Home() {
   const [bgImg, setBgImg] = useRecoilState(bgImgAtom);
@@ -50,11 +50,12 @@ export default function Home() {
 
   useEffect(() => {
     const settedBg = localStorage.getItem("background");
+
     if (settedBg) {
       setBgImg(JSON.parse(settedBg));
     } else {
       setBgImg({
-        src: `${defaultBgUrl}/background_monterey.webp`,
+        src: defaultBackgroundImage,
         title: "Monterey(Graphic)",
       });
     }
@@ -67,7 +68,13 @@ export default function Home() {
         onOpenModal={handleOpenModal}
         onUpperModal={handleUpperModal}
       />
-      <img className={styles.backgroundImg} src={bgImg.src} alt="background" />
+      {bgImg.src && (
+        <ResponsiveImage
+          className={styles.backgroundImg}
+          src={bgImg.src}
+          alt="background"
+        />
+      )}
 
       {Children.toArray(
         items.map(
