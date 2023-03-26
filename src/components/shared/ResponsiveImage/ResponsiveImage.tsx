@@ -66,7 +66,7 @@ function ResponsiveImage({
         sizes="100%, 100%"
         alt={alt}
         fill
-        quality={100}
+        quality={89}
         priority={true}
       />
 
