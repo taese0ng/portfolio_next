@@ -5,8 +5,8 @@ import classNames from "classnames";
 
 interface Props {
   src: string;
-  width: number | string;
-  height: number | string;
+  width?: number | string;
+  height?: number | string;
   onClick?: () => void;
   onLoadComplete?: (imageElement: HTMLImageElement) => void;
   onLoadError?: () => void;
@@ -64,8 +64,8 @@ function ResponsiveImage({
         onLoad={handleLoadImage}
         onError={handleErrorImage}
         alt={alt}
-        width={90}
-        height={90}
+        width={100}
+        height={100}
       />
 
       {!isNormal && (
