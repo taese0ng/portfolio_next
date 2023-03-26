@@ -46,6 +46,7 @@ function Certificate() {
         <Popup onClosePopup={handleClosePopup} hasCloseBtn>
           <div className={styles.imageWrapper}>
             <ResponsiveImage
+              className={styles.image}
               src={selectedCertificate.src}
               alt={selectedCertificate.title}
             />

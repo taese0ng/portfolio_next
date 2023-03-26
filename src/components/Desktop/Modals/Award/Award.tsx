@@ -41,6 +41,7 @@ function Award() {
         <Popup onClosePopup={handleClosePopup} hasCloseBtn>
           <div className={styles.imageWrapper}>
             <ResponsiveImage
+              className={styles.image}
               src={selectedAward.src}
               alt={selectedAward.title}
             />

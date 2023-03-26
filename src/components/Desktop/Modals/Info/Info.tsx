@@ -12,8 +12,12 @@ function Info() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.profileImage}>
-        <ResponsiveImage src={profileImg} alt="profileImg" />
+      <div className={styles.profileImageWrapper}>
+        <ResponsiveImage
+          className={styles.profileImage}
+          src={profileImg}
+          alt="profileImg"
+        />
       </div>
 
       <ul className={styles.profileContents}>

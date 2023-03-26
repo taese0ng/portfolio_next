@@ -45,7 +45,11 @@ function Popup({ onClosePopup, hasCloseBtn = false, children }: Props) {
       <div className={styles.wrapper} onClick={handleClickSlot}>
         {hasCloseBtn && (
           <div className={styles.closeButton} onClick={handleClosePopup}>
-            <ResponsiveImage src={closeIcon} alt="closeButton" />
+            <ResponsiveImage
+              className={styles.image}
+              src={closeIcon}
+              alt="closeButton"
+            />
           </div>
         )}
 
