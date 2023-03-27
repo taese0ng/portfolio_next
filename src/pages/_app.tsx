@@ -4,7 +4,6 @@ import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { AnimatePresence } from "framer-motion";
 import { WindowSizeContext } from "@/components/shared";
-import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -18,9 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <WindowSizeContext>
         <AnimatePresence mode="wait" initial={false}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Component {...pageProps} />
         </AnimatePresence>
       </WindowSizeContext>
     </RecoilRoot>

@@ -1,13 +1,13 @@
-import { useGetWindow } from "@/hooks";
 import Link from "next/link";
+import styles from "./404.module.scss";
 
 export default function Custom404() {
-  const { isMobile } = useGetWindow();
-
   return (
-    <div>
-      <h1>잘못된 경로입니다.</h1>
-      <Link href={isMobile ? "/mobile" : "/"}>Home</Link>
+    <div className={styles.container}>
+      <div className={styles.title}>잘못된 경로입니다.</div>
+      <div className={styles.link}>
+        <Link href={"/"}>Home</Link> 으로 이동하기
+      </div>
     </div>
   );
 }
