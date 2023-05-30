@@ -1,7 +1,7 @@
 import { MouseEvent, ReactNode, useEffect } from "react";
 
-import styles from "./Popup.module.scss";
 import { ResponsiveImage } from "@/components/shared";
+import styled from "@emotion/styled";
 
 const closeIcon = "/assets/icons/closeIcon.webp";
 
@@ -38,25 +38,48 @@ function Popup({ onClosePopup, hasCloseBtn = false, children }: Props) {
   }, []);
 
   return (
-    <div
-      className={styles.container}
-      onClick={() => !hasCloseBtn && handleClosePopup()}
-    >
-      <div className={styles.wrapper} onClick={handleClickSlot}>
+    <Container onClick={() => !hasCloseBtn && handleClosePopup()}>
+      <Wrapper onClick={handleClickSlot}>
         {hasCloseBtn && (
-          <div className={styles.closeButton} onClick={handleClosePopup}>
-            <ResponsiveImage
-              className={styles.image}
-              src={closeIcon}
-              alt="closeButton"
-            />
-          </div>
+          <CloseButton onClick={handleClosePopup}>
+            <ResponsiveImage src={closeIcon} alt="closeButton" />
+          </CloseButton>
         )}
 
         {children}
-      </div>
-    </div>
+      </Wrapper>
+    </Container>
   );
 }
 
 export default Popup;
+
+const Container = styled.div`
+  background-color: var(--black-50per);
+  backdrop-filter: blur(10px);
+  z-index: var(--dialogBg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+`;
+
+const CloseButton = styled.div`
+  position: relative;
+  top: -15px;
+  left: 15px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 1;
+`;

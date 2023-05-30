@@ -7,6 +7,7 @@ import { DockItemType } from "@/interfaces/dock";
 import Calendar from "./Calendar";
 import Time from "./Time";
 import styles from "./Header.module.scss";
+import styled from "@emotion/styled";
 
 const logoImg = "/assets/icons/logo.webp";
 let dock: HTMLDivElement | null = null;
@@ -74,7 +75,7 @@ export default function Header({ itemList, onOpenModal, onUpperModal }: Props) {
             onFocus={handleFocusMenu}
             onBlur={handleBlurMenu}
           >
-            <ResponsiveImage className={styles.logo} src={logoImg} alt="logo" />
+            <Logo src={logoImg} alt="logo" />
           </div>
 
           {isFocusedPopup && (
@@ -109,3 +110,14 @@ export default function Header({ itemList, onOpenModal, onUpperModal }: Props) {
     </div>
   );
 }
+
+const Logo = styled(ResponsiveImage)`
+  padding: 2px 8px;
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+
+  &:hover {
+    background-color: var(--white-30per);
+  }
+`;

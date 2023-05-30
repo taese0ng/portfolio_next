@@ -1,12 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Image from "next/image";
-import styles from "./ResponsiveImage.module.scss";
-import classNames from "classnames";
+import styled from "@emotion/styled";
 
 interface Props {
   src: string;
-  width?: number | string;
-  height?: number | string;
   onClick?: () => void;
   onLoadComplete?: (imageElement: HTMLImageElement) => void;
   onLoadError?: () => void;
@@ -21,16 +18,11 @@ function ResponsiveImage({
   src,
   alt = "",
   className,
-  width,
-  height,
   onClick,
   onLoadError,
   onLoadComplete,
   draggable = false,
 }: Props) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const isNormal = !isLoading && !isError;
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleClickImage = () => {
@@ -41,42 +33,42 @@ function ResponsiveImage({
     if (imageRef.current) {
       onLoadComplete?.(imageRef.current);
     }
-    setIsLoading(false);
   };
 
   const handleErrorImage = () => {
     onLoadError?.();
-    setIsLoading(false);
-    setIsError(true);
   };
 
   return (
-    <div
-      className={classNames(styles.container, className)}
-      style={{ width: width, height: height }}
-    >
-      <Image
+    <Container className={className}>
+      <Img
         ref={imageRef}
-        className={styles.image}
         src={src}
         draggable={draggable}
         onClick={handleClickImage}
         onLoad={handleLoadImage}
         onError={handleErrorImage}
-        sizes="100%, 100%"
         alt={alt}
         fill
+        placeholder="blur"
+        blurDataURL={placeholderImage}
         quality={89}
         priority={true}
       />
-
-      {!isNormal && (
-        <div className={styles.placeholderImageWrapper}>
-          <img className={styles.placeholderImage} src={placeholderImage} />
-        </div>
-      )}
-    </div>
+    </Container>
   );
 }
 
 export default ResponsiveImage;
+
+const Container = styled.div`
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const Img = styled(Image)`
+  position: relative !important;
+`;

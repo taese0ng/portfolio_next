@@ -1,4 +1,3 @@
-import styles from "./Home.module.scss";
 import { Dock, Header, AnimatedBaseModal } from "@/components/Desktop";
 import { useRecoilState } from "recoil";
 import { bgImgAtom } from "@/store";
@@ -6,6 +5,7 @@ import { Children, useEffect, useState } from "react";
 import { DockItemType } from "@/interfaces/dock";
 import { itemList } from "@/constants/dock";
 import { ResponsiveImage } from "@/components/shared";
+import styled from "@emotion/styled";
 
 const defaultBackgroundImage = "/assets/backgrounds/background_monterey.webp";
 
@@ -62,19 +62,13 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <Container>
       <Header
         itemList={items}
         onOpenModal={handleOpenModal}
         onUpperModal={handleUpperModal}
       />
-      {bgImg.src && (
-        <ResponsiveImage
-          className={styles.backgroundImg}
-          src={bgImg.src}
-          alt="background"
-        />
-      )}
+      {bgImg.src && <BackgroundImage src={bgImg.src} alt="background" />}
 
       {Children.toArray(
         items.map(
@@ -96,6 +90,23 @@ export default function Home() {
         onOpenModal={handleOpenModal}
         onUpperModal={handleUpperModal}
       />
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
+const BackgroundImage = styled(ResponsiveImage)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  z-index: var(--background);
+  -webkit-touch-callout: none;
+  user-select: none;
+`;
