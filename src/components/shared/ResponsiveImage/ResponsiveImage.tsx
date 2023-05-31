@@ -12,8 +12,6 @@ interface Props {
   draggable?: boolean;
 }
 
-const placeholderImage = "/assets/icons/defaultImage.svg";
-
 function ResponsiveImage({
   src,
   alt = "",
@@ -50,8 +48,6 @@ function ResponsiveImage({
         onError={handleErrorImage}
         alt={alt}
         fill
-        placeholder="blur"
-        blurDataURL={placeholderImage}
         quality={89}
         priority={true}
       />
