@@ -3,7 +3,7 @@ import { Children, useState } from "react";
 import { Popup, ResponsiveImage } from "@/components/shared";
 import { awardList } from "@/constants/awards";
 import { Award as AwardType } from "@/interfaces/awards";
-import styles from "./Award.module.scss";
+import styled from "@emotion/styled";
 
 function Award() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
@@ -19,37 +19,85 @@ function Award() {
   };
 
   return (
-    <div className={styles.container}>
-      <ul className={styles.wrapper}>
+    <Container>
+      <Wrapper>
         {Children.toArray(
           awardList.map((award) => (
-            <li className={styles.item} onClick={() => handleClickItem(award)}>
-              <ResponsiveImage
-                className={styles.itemImg}
-                src={award.src}
-                alt={award.title}
-              />
-              <div className={styles.itemTitle}>
+            <Item onClick={() => handleClickItem(award)}>
+              <ItemImage src={award.src} alt={award.title} />
+              <ItemTitle>
                 {award.title} ({award.class})
-              </div>
-            </li>
+              </ItemTitle>
+            </Item>
           )),
         )}
-      </ul>
+      </Wrapper>
 
       {isOpenPopup && selectedAward && (
         <Popup onClosePopup={handleClosePopup} hasCloseBtn>
-          <div className={styles.imageWrapper}>
-            <ResponsiveImage
-              className={styles.image}
-              src={selectedAward.src}
-              alt={selectedAward.title}
-            />
-          </div>
+          <ImageWrapper>
+            <PopupImage src={selectedAward.src} alt={selectedAward.title} />
+          </ImageWrapper>
         </Popup>
       )}
-    </div>
+    </Container>
   );
 }
 
 export default Award;
+
+const Container = styled.div`
+  background-color: var(--gray-20);
+  height: 100%;
+`;
+
+const Wrapper = styled.ul`
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: row wrap;
+  overflow: auto;
+`;
+
+const Item = styled.li`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 15px;
+`;
+
+const ItemImage = styled(ResponsiveImage)`
+  width: 180px;
+  height: 260px;
+  border-radius: 8px;
+
+  &:hover {
+    box-shadow: 0 0 0 3px var(--blue-20);
+  }
+`;
+
+const ItemTitle = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 10px;
+`;
+
+const ImageWrapper = styled.div`
+  height: 80vh;
+  max-height: 1300px;
+  max-width: calc(100vw - 150px);
+  border-radius: 15px;
+  overflow: hidden;
+`;
+
+const PopupImage = styled(ResponsiveImage)`
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+`;

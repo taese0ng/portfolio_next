@@ -1,12 +1,13 @@
-import { Children, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import styles from "./Calendar.module.scss";
-import classNames from "classnames";
+import CalendarHeader from "./CalendarHeader";
+import CalendarDay from "./CalendarDay";
+import CalendarDate from "./CalendarDate";
+import styled from "@emotion/styled";
 
-const dayList = ["일", "월", "화", "수", "목", "금", "토"];
 let mainDate = new Date();
 
-export default function Calendar() {
+function Calendar() {
   const [year, setYear] = useState(0);
   const [month, setMonth] = useState(0);
   const [todate, setToday] = useState(0);
@@ -92,57 +93,36 @@ export default function Calendar() {
   }, []);
 
   return (
-    <div>
-      <div className={styles.header}>
-        <div className={styles.title}>
-          {month}월 {year}
-        </div>
+    <Container>
+      <CalendarHeader
+        title={`${month}월 ${year}`}
+        onPrev={handlePrevCalendar}
+        onNow={handleNowCalendar}
+        onNext={handleNextCalendar}
+      />
 
-        <div className={styles.controlWrapper}>
-          <div className={styles.controlButton} onClick={handlePrevCalendar}>
-            ◁
-          </div>
-          <div className={styles.controlButton} onClick={handleNowCalendar}>
-            ○
-          </div>
-          <div className={styles.controlButton} onClick={handleNextCalendar}>
-            ▷
-          </div>
-        </div>
-      </div>
-      <div className={styles.body}>
-        <div className={styles.row}>
-          {Children.toArray(
-            dayList.map((day) => <span className={styles.item}>{day}</span>),
-          )}
-        </div>
+      <BodyWrapper>
+        <CalendarDay />
 
-        <div>
-          {Children.toArray(
-            dateList.map((dateRow) => (
-              <div className={styles.row}>
-                {Children.toArray(
-                  dateRow.map((date) => (
-                    <span
-                      className={classNames(styles.dateItem, {
-                        [styles.uppedCursor]: date > 0,
-                        [styles.today]:
-                          todate === date &&
-                          toMonth === month &&
-                          toYear === year,
-                        [styles.selected]: selectedDate === date && date > 0,
-                      })}
-                      onClick={() => handleClickDate(date)}
-                    >
-                      {date > 0 ? date : ""}
-                    </span>
-                  )),
-                )}
-              </div>
-            )),
-          )}
-        </div>
-      </div>
-    </div>
+        <CalendarDate
+          dateList={dateList}
+          selectedDate={selectedDate}
+          todate={todate}
+          toMonth={toMonth}
+          toYear={toYear}
+          month={month}
+          year={year}
+          onClickDate={handleClickDate}
+        />
+      </BodyWrapper>
+    </Container>
   );
 }
+
+export default Calendar;
+
+const Container = styled.div``;
+
+const BodyWrapper = styled.div`
+  margin: 10px 0;
+`;

@@ -1,9 +1,9 @@
 import { Children } from "react";
 
 import { contents, profileImg } from "@/constants/info";
-import styles from "./Info.module.scss";
-import classNames from "classnames";
 import { ResponsiveImage } from "@/components/shared";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 function Info() {
   const handleClickContent = (link?: string) => {
@@ -11,40 +11,98 @@ function Info() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.profileImageWrapper}>
-        <ResponsiveImage
-          className={styles.profileImage}
-          src={profileImg}
-          alt="profileImg"
-        />
-      </div>
+    <Container>
+      <ProfileImageWrapper>
+        <ProfileImage src={profileImg} alt="profileImg" />
+      </ProfileImageWrapper>
 
-      <ul className={styles.profileContents}>
-        <li className={styles.profileContentsName}>
+      <ProfileContents>
+        <ProfileContentsName>
           <div>김태성</div>
-        </li>
+        </ProfileContentsName>
 
         {Children.toArray(
           contents.map((content) => (
-            <li
-              className={classNames(styles.profileContent, {
-                [styles.contentsLink]: Boolean(content.link),
-              })}
+            <ProfileContent
+              hasLink={Boolean(content.link)}
               onClick={() => handleClickContent(content?.link)}
             >
-              <ResponsiveImage
-                className={styles.contentsIcon}
-                src={content.icon}
-                alt={content.id}
-              />
+              <ProfileContentIcon src={content.icon} alt={content.id} />
               <span>{content.text}</span>
-            </li>
+            </ProfileContent>
           )),
         )}
-      </ul>
-    </div>
+      </ProfileContents>
+    </Container>
   );
 }
 
 export default Info;
+
+const Container = styled.div`
+  display: flex;
+  background: var(--gray-20);
+  align-items: center;
+  height: 100%;
+  padding: 0 50px;
+`;
+
+const ProfileImageWrapper = styled.div`
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  flex-shrink: 0;
+  border: 6px solid transparent;
+  background-image: linear-gradient(to top, #a7a7a7, #fff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  background-size: cover;
+  box-sizing: border-box;
+  box-shadow: 0 6px 15px -7px var(--black);
+`;
+
+const ProfileImage = styled(ResponsiveImage)`
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  object-fit: cover;
+`;
+
+const ProfileContents = styled.ul`
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  width: 100%;
+  margin: 0 0 0 60px;
+  padding: 0;
+  position: relative;
+  top: -10px;
+`;
+
+const ProfileContent = styled.li<{ hasLink?: boolean }>`
+  list-style: none;
+  margin: 5px 0;
+  font-weight: 700;
+  display: flex;
+  width: fit-content;
+  align-items: center;
+
+  ${({ hasLink }) =>
+    hasLink &&
+    css`
+      color: var(--blue-20);
+      cursor: pointer;
+    `}
+`;
+
+const ProfileContentsName = styled(ProfileContent)`
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
+
+const ProfileContentIcon = styled(ResponsiveImage)`
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+`;

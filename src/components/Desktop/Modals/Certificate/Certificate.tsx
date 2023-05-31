@@ -4,7 +4,7 @@ import { Popup, ResponsiveImage } from "@/components/shared";
 import { certificateList } from "@/constants/certificates";
 
 import { Certificate as CertificateType } from "@/interfaces/certificates";
-import styles from "./Certificate.module.scss";
+import styled from "@emotion/styled";
 
 function Certificate() {
   const [isOpenPopup, setIsOpenPopup] = useState(false);
@@ -21,40 +21,89 @@ function Certificate() {
   };
 
   return (
-    <div className={styles.container}>
-      <ul className={styles.wrapper}>
+    <Container>
+      <Wrapper>
         {Children.toArray(
           certificateList.map((certificate) => (
-            <li
-              className={styles.item}
-              onClick={() => handleClickItem(certificate)}
-            >
-              <ResponsiveImage
-                className={styles.itemImg}
-                src={certificate.src}
-                alt={certificate.title}
-              />
-              <div className={styles.itemTitle}>
+            <Item onClick={() => handleClickItem(certificate)}>
+              <ItemImage src={certificate.src} alt={certificate.title} />
+              <ItemTitle>
                 {certificate.title} ({certificate.class})
-              </div>
-            </li>
+              </ItemTitle>
+            </Item>
           )),
         )}
-      </ul>
+      </Wrapper>
 
       {isOpenPopup && selectedCertificate && (
         <Popup onClosePopup={handleClosePopup} hasCloseBtn>
-          <div className={styles.imageWrapper}>
-            <ResponsiveImage
-              className={styles.image}
+          <ImageWrapper>
+            <Image
               src={selectedCertificate.src}
               alt={selectedCertificate.title}
             />
-          </div>
+          </ImageWrapper>
         </Popup>
       )}
-    </div>
+    </Container>
   );
 }
 
 export default Certificate;
+
+const Container = styled.div`
+  background-color: var(--gray-20);
+  height: 100%;
+`;
+
+const Wrapper = styled.ul`
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-flow: row wrap;
+  overflow: auto;
+`;
+
+const Item = styled.li`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  margin: 15px;
+  width: 230px;
+  height: 180px;
+`;
+
+const ItemImage = styled(ResponsiveImage)`
+  width: 100%;
+  border-radius: 8px;
+
+  &:hover {
+    box-shadow: 0 0 0 3px var(--blue-20);
+  }
+`;
+
+const ItemTitle = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 10px;
+`;
+
+const ImageWrapper = styled.div`
+  max-height: calc(100vh - 150px);
+  width: 80vw;
+  max-width: 1300px;
+  border-radius: 15px;
+  overflow: hidden;
+`;
+
+const Image = styled(ResponsiveImage)`
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+`;

@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment, useRef } from "react";
 
 import { Battery, ResponsiveImage } from "@/components/shared";
 import { itemIDs } from "@/constants/dock";
 import { DockItemType } from "@/interfaces/dock";
+import styled from "@emotion/styled";
 
 import Calendar from "./Calendar";
 import Time from "./Time";
-import styles from "./Header.module.scss";
-import styled from "@emotion/styled";
 
 const logoImg = "/assets/icons/logo.webp";
-let dock: HTMLDivElement | null = null;
-let header: HTMLDivElement | null = null;
 
 interface Props {
   itemList: Array<DockItemType>;
@@ -19,7 +16,9 @@ interface Props {
   onUpperModal: (id: string) => void;
 }
 
-export default function Header({ itemList, onOpenModal, onUpperModal }: Props) {
+function Header({ itemList, onOpenModal, onUpperModal }: Props) {
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const dockRef = useRef<HTMLDivElement | null>(null);
   const [isFocusedPopup, setIsFocusedPopup] = useState(false);
   const [isOpenedCalendar, setIsOpenedCalendar] = useState(false);
 
@@ -45,77 +44,184 @@ export default function Header({ itemList, onOpenModal, onUpperModal }: Props) {
   };
 
   const handleOpenCalendar = () => {
-    if (header && dock) {
-      header.style.zIndex = "0";
-      dock.style.zIndex = "-1";
+    if (headerRef.current && dockRef.current) {
+      headerRef.current.style.zIndex = "0";
+      dockRef.current.style.zIndex = "-1";
     }
     setIsOpenedCalendar(true);
   };
 
   const handleCloseCalendar = () => {
-    if (header && dock) {
-      header.style.zIndex = "70000";
-      dock.style.zIndex = "70000";
+    if (headerRef.current && dockRef.current) {
+      headerRef.current.style.zIndex = "70000";
+      dockRef.current.style.zIndex = "70000";
     }
     setIsOpenedCalendar(false);
   };
 
   useEffect(() => {
-    dock = document.querySelector("#dock");
-    header = document.querySelector("#header");
+    headerRef.current = document.querySelector("#header") ?? null;
+    dockRef.current = document.querySelector("#dock") ?? null;
   }, []);
 
   return (
-    <div className={styles.container} id="header">
-      <div className={styles.left}>
-        <div className={styles.elementWrapper}>
-          <div
-            className={styles.logoWrapper}
+    <Container id="header">
+      <Left>
+        <ElementWrapper>
+          <LogoWrapper
             tabIndex={0}
             onFocus={handleFocusMenu}
             onBlur={handleBlurMenu}
           >
             <Logo src={logoImg} alt="logo" />
-          </div>
+          </LogoWrapper>
 
           {isFocusedPopup && (
-            <div className={styles.menuList}>
-              <li onClick={handleClickMyInfo}>김태성에 관하여</li>
-            </div>
+            <MenuList>
+              <Menu onClick={handleClickMyInfo}>김태성에 관하여</Menu>
+            </MenuList>
           )}
-        </div>
-      </div>
-      <div className={styles.right}>
-        <div className={styles.elementWrapper}>
-          <div className={styles.element}>
-            <Battery onPercent={true} blackMode={false} />
-          </div>
+        </ElementWrapper>
+      </Left>
 
-          <div className={styles.element}>
-            <div className={styles.timeWrapper} onClick={handleOpenCalendar}>
+      <Right>
+        <ElementWrapper>
+          <Element>
+            <Battery onPercent={true} blackMode={false} />
+          </Element>
+
+          <Element>
+            <TimeWrapper onClick={handleOpenCalendar}>
               <Time />
-            </div>
+            </TimeWrapper>
 
             {isOpenedCalendar && (
-              <>
-                <div className={styles.calendarWrapper}>
+              <Fragment>
+                <CalendarWrapper>
                   <Calendar />
-                </div>
-                <div className={styles.dim} onClick={handleCloseCalendar} />
-              </>
+                </CalendarWrapper>
+                <Dim onClick={handleCloseCalendar} />
+              </Fragment>
             )}
-          </div>
-        </div>
-      </div>
-    </div>
+          </Element>
+        </ElementWrapper>
+      </Right>
+    </Container>
   );
 }
+
+export default Header;
+
+const Container = styled.div`
+  z-index: var(--top);
+  position: absolute;
+  background-color: var(--black-30per);
+  backdrop-filter: blur(10px);
+  width: 100%;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--white);
+`;
+
+const Left = styled.div`
+  padding-left: 7px;
+  display: flex;
+  align-items: center;
+`;
+
+const ElementWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+
+const Element = styled.div`
+  height: 70%;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding: 2px 5px;
+
+  &:hover {
+    background-color: var(--white-30per);
+  }
+`;
+
+const Right = styled.div`
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  padding-right: 7px;
+  height: 100%;
+`;
+
+const LogoWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+`;
 
 const Logo = styled(ResponsiveImage)`
   padding: 2px 8px;
   width: 17px;
   height: 17px;
   border-radius: 5px;
+
+  &:hover {
+    background-color: var(--white-30per);
+  }
+`;
+
+const Dim = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+`;
+
+const Popup = styled.div`
+  position: absolute;
+  top: 25px;
+  z-index: var(--top);
+  background-color: var(--black-50per);
+  backdrop-filter: blur(10px);
+  border-radius: 3px;
+  padding: 4px;
+`;
+
+const MenuList = styled(Popup)`
+  width: 200px;
+  margin: 0;
+`;
+
+const Menu = styled.div`
+  list-style: none;
+  margin: 0;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--blue-10);
+  }
+`;
+
+const CalendarWrapper = styled(Popup)`
+  padding: 10px;
+  right: 0;
+  border-radius: 10px;
+`;
+
+const TimeWrapper = styled.div`
+  border-radius: 5px;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--white-30per);

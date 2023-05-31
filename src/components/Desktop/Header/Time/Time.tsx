@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import styles from "./Time.module.scss";
+import styled from "@emotion/styled";
 
-export default function Time() {
+function Time() {
   const [midday, setMidday] = useState("");
   const [hour, setHour] = useState("");
   const [min, setMin] = useState("");
@@ -34,9 +34,20 @@ export default function Time() {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <Container>
       ٩(◕‿◕｡)۶ {month}월 {date}일 ({day}) {midday}
       {hour}:{min}:{sec}
-    </div>
+    </Container>
   );
 }
+
+export default Time;
+
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+  height: 100%;
+  font-size: 0.9rem;
+  white-space: nowrap;
+`;

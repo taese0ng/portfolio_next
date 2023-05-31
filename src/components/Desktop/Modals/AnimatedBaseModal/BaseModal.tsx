@@ -1,8 +1,8 @@
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import { ReactElement, useEffect, useRef, useState, Fragment } from "react";
 
-import styles from "./BaseModal.module.scss";
 import { DockItemType } from "@/interfaces/dock";
-import classNames from "classnames";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 interface Props {
   item: DockItemType;
@@ -19,10 +19,9 @@ function BaseModal({ item, onCloseModal, onUpperModal, children }: Props) {
     id,
     isFixed,
     resizeable,
-    nowOpen,
     zIndex,
-    isFull,
-    isAbsoluteHeader,
+    isFull = false,
+    isAbsoluteHeader = false,
     title,
   } = item;
   const [isResizeClicked, setIsResizeClicked] = useState(false);
@@ -246,12 +245,10 @@ function BaseModal({ item, onCloseModal, onUpperModal, children }: Props) {
   }, [isClicked, isResizeClicked]);
 
   return (
-    <div
+    <Container
+      isFull={isFull}
       ref={containerRef}
       onMouseDown={handleUppderModal}
-      className={classNames(styles.container, {
-        [styles.isFull]: isFull,
-      })}
       style={{
         width: width || 500,
         height: height || 300,
@@ -261,81 +258,202 @@ function BaseModal({ item, onCloseModal, onUpperModal, children }: Props) {
       }}
     >
       {resizeable && (
-        <>
-          <div
-            className={styles.topSetter}
+        <Fragment>
+          <TopSetter
             ref={topSetterRef}
             onMouseDown={() => onResizeMouseDown("top")}
             onMouseUp={onMouseUp}
           />
-          <div
-            className={styles.bottomSetter}
+          <BottomSetter
             ref={bottomSetterRef}
             onMouseDown={() => onResizeMouseDown("bottom")}
             onMouseUp={onMouseUp}
           />
-          <div
-            className={styles.rightSetter}
+          <RightSetter
             ref={rightSetterRef}
             onMouseDown={() => onResizeMouseDown("right")}
             onMouseUp={onMouseUp}
           />
-          <div
-            className={styles.leftSetter}
+          <LeftSetter
             ref={leftSetterRef}
             onMouseDown={() => onResizeMouseDown("left")}
             onMouseUp={onMouseUp}
           />
-          <div
-            className={styles.rbSetter}
+          <RbSetter
             onMouseDown={() => onResizeMouseDown("rb")}
             onMouseUp={onMouseUp}
           />
-          <div
-            className={styles.lbSetter}
+          <LbSetter
             onMouseDown={() => onResizeMouseDown("lb")}
             onMouseUp={onMouseUp}
           />
-          <div
-            className={styles.rtSetter}
+          <RtSetter
             onMouseDown={() => onResizeMouseDown("rt")}
             onMouseUp={onMouseUp}
           />
-          <div
-            className={styles.ltSetter}
+          <LtSetter
             onMouseDown={() => onResizeMouseDown("lt")}
             onMouseUp={onMouseUp}
           />
-        </>
+        </Fragment>
       )}
 
-      <div
-        className={classNames(styles.header, {
-          [styles.absoluteHeader]: isAbsoluteHeader,
-        })}
+      <Header
+        isAbsoluteHeader={isAbsoluteHeader}
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
       >
-        <div
-          className={styles.circle}
+        <Circle
           onClick={handleCloseModal}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <div
-            className={classNames(styles.circleIcon, {
-              [styles.isHover]: isIconHover,
-            })}
-          >
-            ⅹ
-          </div>
-        </div>
+          <CircleIcon isHover={isIconHover}>ⅹ</CircleIcon>
+        </Circle>
         {!isAbsoluteHeader && title}
-      </div>
+      </Header>
 
-      <div className={styles.body}>{children}</div>
-    </div>
+      <Body>{children}</Body>
+    </Container>
   );
 }
 
 export default BaseModal;
+
+const Container = styled.div<{ isFull: boolean }>`
+  position: absolute;
+
+  border-radius: 8px;
+  overflow: hidden;
+
+  border: 1px solid var(--gray-50);
+
+  ${({ isFull }) =>
+    isFull &&
+    css`
+      width: 100%;
+      height: calc(100% - 105px);
+      left: 0px;
+      top: 25px;
+    `};
+`;
+
+const Header = styled.div<{ isAbsoluteHeader: boolean }>`
+  width: 100%;
+  height: 30px;
+  background-color: var(--gray-10);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid var(--gray-50);
+  -webkit-touch-callout: none;
+  user-select: none;
+
+  ${({ isAbsoluteHeader }) =>
+    isAbsoluteHeader &&
+    css`
+      z-index: var(--absoluteHeader);
+      position: absolute;
+      top: 0;
+      background-color: var(--transparent);
+      border: none;
+    `};
+`;
+
+const Body = styled.div`
+  width: 100%;
+  height: calc(100% - 30px);
+  border-radius: inherit;
+`;
+
+const Circle = styled.div`
+  border-radius: 100%;
+  width: 13px;
+  height: 13px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--red-10);
+  cursor: pointer;
+  position: absolute;
+  left: 15px;
+`;
+
+const CircleIcon = styled.div<{ isHover: boolean }>`
+  position: relative;
+  display: none;
+  top: 50%;
+  font-size: 10px;
+  transform: translateY(-50%);
+
+  ${({ isHover }) =>
+    isHover &&
+    css`
+      display: unset;
+    `};
+`;
+
+const Setter = styled.div`
+  position: absolute;
+  z-index: calc(var(--absoluteHeader) + 1);
+  background-color: transparent;
+`;
+
+const TopSetter = styled(Setter)`
+  top: 0;
+  width: 100%;
+  height: 4px;
+  cursor: n-resize;
+`;
+
+const BottomSetter = styled(Setter)`
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  cursor: s-resize;
+`;
+
+const RightSetter = styled(Setter)`
+  right: 0;
+  width: 4px;
+  height: 100%;
+  cursor: e-resize;
+`;
+
+const LeftSetter = styled(Setter)`
+  left: 0;
+  width: 4px;
+  height: 100%;
+  cursor: w-resize;
+`;
+
+const RbSetter = styled(Setter)`
+  right: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  cursor: se-resize;
+`;
+
+const LbSetter = styled(Setter)`
+  left: 0;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  cursor: sw-resize;
+`;
+
+const RtSetter = styled(Setter)`
+  right: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  cursor: ne-resize;
+`;
+
+const LtSetter = styled(Setter)`
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  cursor: nw-resize;
+`;

@@ -1,11 +1,12 @@
 import { Children, useEffect, useRef, useState } from "react";
 
-import { Card, ResponsiveImage } from "@/components/shared";
+import { ResponsiveImage } from "@/components/shared";
 import { projectList } from "@/constants/projects";
 import { Project as ProjectType } from "@/interfaces/projects";
 
-import styles from "./Project.module.scss";
-import classNames from "classnames";
+import SideBar from "./SideBar";
+import ContentsCard from "./ContentsCard";
+import styled from "@emotion/styled";
 
 const clockIcon = "/assets/icons/clock.webp";
 const githubIcon = "/assets/icons/githubBtn.webp";
@@ -18,7 +19,7 @@ function Project() {
   const [selectedProject, setSelectedProject] = useState<ProjectType>(
     projectList[0],
   );
-  const [sideBarWidth, setSideBarWidth] = useState(200);
+  const [sideBarWidth, setSideBarWidth] = useState<number>(200);
 
   const handleMouseDown = () => {
     setIsClicked(true);
@@ -88,152 +89,211 @@ function Project() {
   }, []);
 
   return (
-    <div className={styles.container} ref={containerRef}>
-      <div className={styles.sideBarWrapper}>
-        <div style={{ width: sideBarWidth }}>
-          <div className={styles.sideBarCategory}>프로젝트</div>
+    <Container ref={containerRef}>
+      <SideBar
+        width={sideBarWidth}
+        selectedProject={selectedProject}
+        onClickTitle={handleClickTitle}
+        onMouseDown={handleMouseDown}
+      />
 
-          <ul>
-            {Children.toArray(
-              projectList.map((project) => (
-                <li
-                  className={classNames(styles.sideBarItem, {
-                    [styles.isFocused]: selectedProject.id === project.id,
-                  })}
-                  onClick={() => handleClickTitle(project)}
-                >
-                  {project.title}
-                </li>
-              )),
-            )}
-          </ul>
-        </div>
+      <Wrapper ref={bodyWrapperRef}>
+        <HeaderTitle>프로젝트</HeaderTitle>
+        <Body>
+          <CardList ref={cardListRef}>
+            <ContentsCard isRow>
+              <MainCardIcon src={selectedProject.icon} alt="projectIcon" />
+              <div>
+                <MainCardTitle>
+                  {selectedProject.title}
+                  <MainCardSubTitle>
+                    {selectedProject.subTitle}
+                  </MainCardSubTitle>
+                </MainCardTitle>
 
-        <span className={styles.widthSetter} onMouseDown={handleMouseDown} />
-      </div>
+                <Date>
+                  <DateIcon src={clockIcon} alt="clock" />
+                  <div>{getDate(selectedProject)}</div>
+                </Date>
+              </div>
 
-      <div className={styles.bodyWrapper} ref={bodyWrapperRef}>
-        <div className={styles.header}>프로젝트</div>
-        <div className={styles.body}>
-          <ul className={styles.cardList} ref={cardListRef}>
-            <li>
-              <Card>
-                <div className={classNames(styles.cardWrapper, styles.isRow)}>
-                  <ResponsiveImage
-                    className={styles.cardWrapperIcon}
-                    src={selectedProject.icon}
-                    alt="projectIcon"
-                  />
-                  <div>
-                    <div className={styles.cardWrapperTitle}>
-                      {selectedProject.title}
-                      <div className={styles.cardWrapperSubTitle}>
-                        {selectedProject.subTitle}
-                      </div>
-                    </div>
+              <Links>
+                {selectedProject.githubUrl && (
+                  <Link
+                    onClick={() => handleClickUrl(selectedProject.githubUrl)}
+                  >
+                    <ResponsiveImage src={githubIcon} alt="githubBtn" />
+                  </Link>
+                )}
+                {selectedProject.url && (
+                  <Link onClick={() => handleClickUrl(selectedProject.url)}>
+                    구경하기
+                  </Link>
+                )}
+              </Links>
+            </ContentsCard>
 
-                    <div className={styles.cardWrapperDate}>
-                      <ResponsiveImage
-                        src={clockIcon}
-                        alt="clock"
-                        className={styles.cardWrapperDateIcon}
-                      />
-                      <div>{getDate(selectedProject)}</div>
-                    </div>
-                  </div>
+            <ContentsCard title="Project Positions">
+              <Tags>
+                {Children.toArray(
+                  selectedProject.positions.map((position) => (
+                    <Tag>{position}</Tag>
+                  )),
+                )}
+              </Tags>
+            </ContentsCard>
 
-                  <ul className={styles.cardWrapperLinks}>
-                    {selectedProject.githubUrl && (
-                      <li
-                        className={styles.cardWrapperLink}
-                        onClick={() =>
-                          handleClickUrl(selectedProject.githubUrl)
-                        }
-                      >
-                        <ResponsiveImage src={githubIcon} alt="githubBtn" />
-                      </li>
-                    )}
-                    {selectedProject.url && (
-                      <li
-                        className={styles.cardWrapperLink}
-                        onClick={() => handleClickUrl(selectedProject.url)}
-                      >
-                        구경하기
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              </Card>
-            </li>
+            <ContentsCard title="Skills">
+              <Tags>
+                {Children.toArray(
+                  selectedProject.skills.map((skill) => <Tag>{skill}</Tag>),
+                )}
+              </Tags>
+            </ContentsCard>
 
-            <li>
-              <Card>
-                <div className={styles.cardWrapper}>
-                  <div className={styles.cardWrapperSubTitle}>
-                    Project Positions
-                  </div>
-                  <ul className={styles.cardWrapperTags}>
-                    {Children.toArray(
-                      selectedProject.positions.map((position) => (
-                        <li className={styles.tag}>{position}</li>
-                      )),
-                    )}
-                  </ul>
-                </div>
-              </Card>
-            </li>
+            <ContentsCard title="Explanation">
+              <Contents>
+                {Children.toArray(
+                  selectedProject.explanations.map((explanation) => (
+                    <li>- {explanation}</li>
+                  )),
+                )}
+              </Contents>
+            </ContentsCard>
 
-            <li>
-              <Card>
-                <div className={styles.cardWrapper}>
-                  <div className={styles.cardWrapperTitle}>Skills</div>
-                  <ul className={styles.cardWrapperTags}>
-                    {Children.toArray(
-                      selectedProject.skills.map((skill) => (
-                        <li className={styles.tag}>{skill}</li>
-                      )),
-                    )}
-                  </ul>
-                </div>
-              </Card>
-            </li>
-
-            <li>
-              <Card>
-                <div className={styles.cardWrapper}>
-                  <div className={styles.cardWrapperTitle}>Explanation</div>
-                  <ul className={styles.cardWrapperContents}>
-                    {Children.toArray(
-                      selectedProject.explanations.map((explanation) => (
-                        <li>- {explanation}</li>
-                      )),
-                    )}
-                  </ul>
-                </div>
-              </Card>
-            </li>
-
-            <li>
-              <Card>
-                <div className={styles.cardWrapper}>
-                  <div className={styles.cardWrapperTitle}>Images</div>
-                  <ul className={styles.cardWrapperImages}>
-                    {Children.toArray(
-                      selectedProject.imgs.map((img) => (
-                        <li>
-                          <ResponsiveImage src={img} alt={img} />
-                        </li>
-                      )),
-                    )}
-                  </ul>
-                </div>
-              </Card>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+            <ContentsCard title="Images">
+              <Images>
+                {Children.toArray(
+                  selectedProject.imgs.map((img) => (
+                    <li>
+                      <ResponsiveImage src={img} alt={img} />
+                    </li>
+                  )),
+                )}
+              </Images>
+            </ContentsCard>
+          </CardList>
+        </Body>
+      </Wrapper>
+    </Container>
   );
 }
 
 export default Project;
+
+const Container = styled.div`
+  display: flex;
+  height: calc(100% + 30px);
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+`;
+
+const HeaderTitle = styled.div`
+  width: 100%;
+  height: 30px;
+  background-color: var(--gray-30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Body = styled.div`
+  height: calc(100% - 30px);
+  background-color: var(--gray-20);
+`;
+
+const CardList = styled.ul`
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 15px;
+`;
+
+const MainCardIcon = styled(ResponsiveImage)`
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  margin-right: 15px;
+`;
+
+const MainCardTitle = styled.div`
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 10px;
+`;
+
+const MainCardSubTitle = styled.div`
+  font-size: 15px;
+  font-weight: 400;
+`;
+
+const Date = styled.div`
+  color: var(--gray-70per);
+  margin: 5px 0 10px 0;
+  display: flex;
+  align-items: center;
+`;
+
+const DateIcon = styled(ResponsiveImage)`
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+`;
+
+const Links = styled.ul`
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const Link = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+  border: 2px solid var(--black);
+  overflow: hidden;
+  cursor: pointer;
+`;
+
+const Tags = styled.ul`
+  width: fit-content;
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  flex-wrap: wrap;
+`;
+
+const Tag = styled.li`
+  font-weight: bold;
+  background-color: var(--gray-10per);
+  border-radius: 5px;
+  padding: 5px;
+  width: fit-content;
+`;
+
+const Contents = styled.ul`
+  background-color: var(--gray-10per);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 17px;
+  word-break: keep-all;
+  line-height: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+const Images = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;

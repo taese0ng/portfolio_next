@@ -4,8 +4,8 @@ import { Card, ResponsiveImage } from "@/components/shared";
 import { historyList } from "@/constants/histories";
 
 import { History as HistoryType } from "@/interfaces/histories";
-import styles from "./History.module.scss";
-import classNames from "classnames";
+import SideBar from "./SideBar";
+import styled from "@emotion/styled";
 
 const clockIcon = "/assets/icons/clock.webp";
 const years = historyList
@@ -92,60 +92,99 @@ function History() {
   }, []);
 
   return (
-    <div className={styles.container} ref={containerRef}>
-      <div className={styles.sideBarWrapper}>
-        <div style={{ width: sideBarWidth }}>
-          <div className={styles.sideBarCategory}>연도</div>
-          <ul>
-            {Children.toArray(
-              years.map((year) => (
-                <li
-                  className={classNames(styles.sideBarItem, {
-                    [styles.isFocused]: selectedYear === year,
-                  })}
-                  onClick={() => handleClickYear(year)}
-                >
-                  {year}년
-                </li>
-              )),
-            )}
-          </ul>
-        </div>
+    <Container ref={containerRef}>
+      <SideBar
+        width={sideBarWidth}
+        years={years}
+        selectedYear={selectedYear}
+        onClickYear={handleClickYear}
+        onMouseDown={handleMouseDown}
+      />
 
-        <span className={styles.widthSetter} onMouseDown={handleMouseDown} />
-      </div>
-
-      <div className={styles.bodyWrapper} ref={bodyWrapperRef}>
-        <div className={styles.header}>히스토리</div>
-        <div className={styles.body}>
-          <ul className={styles.histories}>
+      <BodyWrapper ref={bodyWrapperRef}>
+        <Header>히스토리</Header>
+        <Body>
+          <Histories>
             {Children.toArray(
               selectedHistory.map((history) => (
                 <li>
                   <Card>
                     <div>
-                      <div className={styles.historyTitle}>{history.title}</div>
-                      <div className={styles.historyDate}>
-                        <ResponsiveImage
-                          className={styles.historyDateIcon}
-                          src={clockIcon}
-                          alt="clock"
-                        />
+                      <HistoryTitle>{history.title}</HistoryTitle>
+                      <HistoryDate>
+                        <HistoryDateIcon src={clockIcon} alt="clock" />
                         <div>{getDate(history)}</div>
-                      </div>
-                      <div className={styles.historyContent}>
-                        {history.content}
-                      </div>
+                      </HistoryDate>
+                      <HistoryContent>{history.content}</HistoryContent>
                     </div>
                   </Card>
                 </li>
               )),
             )}
-          </ul>
-        </div>
-      </div>
-    </div>
+          </Histories>
+        </Body>
+      </BodyWrapper>
+    </Container>
   );
 }
 
 export default History;
+
+const Container = styled.div`
+  display: flex;
+  height: calc(100% + 30px);
+`;
+
+const BodyWrapper = styled.div`
+  width: 100%;
+`;
+
+const Header = styled.div`
+  width: 100%;
+  height: 30px;
+  background-color: var(--gray-30);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Body = styled.div`
+  height: calc(100% - 30px);
+  background-color: var(--gray-20);
+`;
+
+const Histories = styled.ul`
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 15px;
+`;
+
+const HistoryTitle = styled.div`
+  font-size: 22px;
+  font-weight: 600;
+`;
+
+const HistoryDate = styled.div`
+  color: var(--gray-70per);
+  margin: 5px 0 10px 0;
+  display: flex;
+  align-items: center;
+`;
+
+const HistoryDateIcon = styled(ResponsiveImage)`
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+`;
+
+const HistoryContent = styled.div`
+  background-color: var(--gray-10per);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  word-break: keep-all;
+  line-height: 25px;
+`;

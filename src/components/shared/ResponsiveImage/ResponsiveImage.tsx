@@ -71,4 +71,5 @@ const Container = styled.div`
 
 const Img = styled(Image)`
   position: relative !important;
+  object-fit: cover;
 `;
