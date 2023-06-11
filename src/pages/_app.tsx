@@ -4,8 +4,35 @@ import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { AnimatePresence } from "framer-motion";
 import { WindowSizeContext } from "@/components/shared";
+import { useGetWindow } from "@/hooks";
+import { useRouter } from "next/router";
+import { Fragment, useEffect } from "react";
+import Layout from "@/components/Mobile/Layout";
 
-export default function App({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
+  const { isMobile } = useGetWindow();
+  const router = useRouter();
+
+  useEffect(() => {
+    const pathname = isMobile ? "/mobile" : "/desktop";
+
+    router.replace(pathname);
+  }, [isMobile]);
+
+  return (
+    <Fragment>
+      {isMobile ? (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      ) : (
+        <Component {...pageProps} />
+      )}
+    </Fragment>
+  );
+}
+
+export default function App(appProps: AppProps) {
   return (
     <RecoilRoot>
       <Head>
@@ -17,7 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <WindowSizeContext>
         <AnimatePresence mode="wait" initial={false}>
-          <Component {...pageProps} />
+          <MyApp {...appProps} />
         </AnimatePresence>
       </WindowSizeContext>
     </RecoilRoot>

@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 
 const defaultBackgroundImage = "/assets/backgrounds/background_monterey.webp";
 
-export default function Home() {
+export default function Desktop() {
   const [bgImg, setBgImg] = useRecoilState(bgImgAtom);
   const [items, setItems] = useState(itemList);
 
