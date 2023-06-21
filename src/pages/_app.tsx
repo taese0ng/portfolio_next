@@ -7,7 +7,7 @@ import { WindowSizeContext } from "@/components/shared";
 import { useGetWindow } from "@/hooks";
 import { useRouter } from "next/router";
 import { Fragment, useEffect } from "react";
-import Layout from "@/components/Mobile/Layout";
+import { Layout } from "@/components/Mobile";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { isMobile } = useGetWindow();
