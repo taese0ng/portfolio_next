@@ -1,7 +1,7 @@
 import { Children, useEffect, useRef, useState } from "react";
 
 import { ResponsiveImage } from "@/components/shared";
-import { projectList } from "@/constants/projects";
+import { projectList } from "@/constants/shared/projects";
 import { Project as ProjectType } from "@/interfaces/projects";
 
 import SideBar from "./SideBar";

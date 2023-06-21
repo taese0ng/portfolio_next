@@ -1,6 +1,6 @@
 import { Children } from "react";
 
-import { skillList } from "@/constants/skills";
+import { skillList } from "@/constants/shared/skills";
 import { ResponsiveImage } from "@/components/shared";
 import styled from "@emotion/styled";
 

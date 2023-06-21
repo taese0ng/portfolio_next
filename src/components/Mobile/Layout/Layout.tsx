@@ -35,5 +35,6 @@ const HeaderWrapper = styled.div`
 const ChildrenWrapper = styled.div`
   > :first-of-type {
     padding-top: ${headerHeight}px;
+    height: calc(100vh - ${headerHeight}px);
   }
 `;

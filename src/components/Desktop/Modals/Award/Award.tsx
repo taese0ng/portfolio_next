@@ -1,7 +1,7 @@
 import { Children, useState } from "react";
 
 import { Popup, ResponsiveImage } from "@/components/shared";
-import { awardList } from "@/constants/awards";
+import { awardList } from "@/constants/shared/awards";
 import { Award as AwardType } from "@/interfaces/awards";
 import styled from "@emotion/styled";
 

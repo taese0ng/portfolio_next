@@ -3,11 +3,13 @@ import { useRecoilState } from "recoil";
 import { bgImgAtom } from "@/store";
 import { Children, useEffect, useState } from "react";
 import { DockItemType } from "@/interfaces/dock";
-import { itemList } from "@/constants/dock";
+import { itemList } from "@/constants/desktop/dock";
 import { ResponsiveImage } from "@/components/shared";
 import styled from "@emotion/styled";
 
-const defaultBackgroundImage = "/assets/backgrounds/background_monterey.webp";
+import { bgImgs } from "@/constants/shared/bgSetting";
+
+const defaultBackgroundImage = bgImgs[0];
 
 export default function Desktop() {
   const [bgImg, setBgImg] = useRecoilState(bgImgAtom);
@@ -54,10 +56,7 @@ export default function Desktop() {
     if (settedBg) {
       setBgImg(JSON.parse(settedBg));
     } else {
-      setBgImg({
-        src: defaultBackgroundImage,
-        title: "Monterey(Graphic)",
-      });
+      setBgImg(defaultBackgroundImage);
     }
   }, []);
 

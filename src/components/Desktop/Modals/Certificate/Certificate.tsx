@@ -1,7 +1,7 @@
 import { Children, useState } from "react";
 
 import { Popup, ResponsiveImage } from "@/components/shared";
-import { certificateList } from "@/constants/certificates";
+import { certificateList } from "@/constants/shared/certificates";
 
 import { Certificate as CertificateType } from "@/interfaces/certificates";
 import styled from "@emotion/styled";

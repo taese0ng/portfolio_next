@@ -1,6 +1,6 @@
 import { Children } from "react";
 
-import { bgImgs } from "@/constants/bgSetting";
+import { bgImgs } from "@/constants/shared/bgSetting";
 import { BgImg } from "@/interfaces/bgSetting";
 import { bgImgAtom } from "@/store";
 import { useRecoilState } from "recoil";

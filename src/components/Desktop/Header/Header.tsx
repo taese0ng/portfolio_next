@@ -1,7 +1,7 @@
 import { useEffect, useState, Fragment, useRef } from "react";
 
 import { Battery, ResponsiveImage } from "@/components/shared";
-import { itemIDs } from "@/constants/dock";
+import { itemIDs } from "@/constants/desktop/dock";
 import { DockItemType } from "@/interfaces/dock";
 import styled from "@emotion/styled";
 

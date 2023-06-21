@@ -1,7 +1,7 @@
 import { Children, useEffect, useRef, useState } from "react";
 
 import { Card, ResponsiveImage } from "@/components/shared";
-import { historyList } from "@/constants/histories";
+import { historyList } from "@/constants/shared/histories";
 
 import { History as HistoryType } from "@/interfaces/histories";
 import SideBar from "./SideBar";

@@ -1,4 +1,4 @@
-import { projectList } from "@/constants/projects";
+import { projectList } from "@/constants/shared/projects";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Project } from "@/interfaces/projects";

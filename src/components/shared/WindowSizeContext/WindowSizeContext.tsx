@@ -13,13 +13,13 @@ const MOBILE_SIZE = 1060;
 function WindowSizeContext({ children }: Props) {
   const [isMobile, setIsMobile] = useState(false);
 
-  const checkWindowSize = () => {
-    const width = document.documentElement.clientWidth;
-
-    setIsMobile(width <= MOBILE_SIZE);
-  };
-
   useEffect(() => {
+    const checkWindowSize = () => {
+      const width = document.documentElement.clientWidth;
+
+      setIsMobile(width <= MOBILE_SIZE);
+    };
+
     window.addEventListener("resize", checkWindowSize);
 
     checkWindowSize();

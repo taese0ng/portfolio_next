@@ -1,6 +1,6 @@
 import { Children } from "react";
 
-import { contents, profileImg } from "@/constants/info";
+import { contents, profileImg } from "@/constants/shared/info";
 import { ResponsiveImage } from "@/components/shared";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
