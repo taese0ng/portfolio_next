@@ -19,7 +19,6 @@ function Battery({ onPercent = false, blackMode = false }: Props) {
 
   const updateBatteryPercent = (battery: { level: number }) => {
     setBatteryPercent(battery.level * 100);
-    console.log(battery.level);
   };
 
   useEffect(() => {
