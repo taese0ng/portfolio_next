@@ -154,7 +154,7 @@ const Body = styled.div`
 `;
 
 const Histories = styled.ul`
-  height: 100%;
+  height: calc(100% - 30px);
   overflow: auto;
   display: flex;
   flex-direction: column;
